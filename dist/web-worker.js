@@ -1,11 +1,12 @@
 "use strict";
-var WebWorkerService = (function () {
+Object.defineProperty(exports, "__esModule", { value: true });
+var WebWorkerService = /** @class */ (function () {
     function WebWorkerService() {
         this.workerFunctionToUrlMap = new WeakMap();
         this.promiseToWorkerMap = new WeakMap();
     }
-    WebWorkerService.prototype.run = function (workerFunction, data) {
-        var url = this.getOrCreateWorkerUrl(workerFunction);
+    WebWorkerService.prototype.run = function (workerFunction, data, enableAsync) {
+        var url = this.getOrCreateWorkerUrl(workerFunction, enableAsync);
         return this.runUrl(url, data);
     };
     WebWorkerService.prototype.runUrl = function (url, data) {
@@ -29,17 +30,17 @@ var WebWorkerService = (function () {
             worker.postMessage(data);
         });
     };
-    WebWorkerService.prototype.getOrCreateWorkerUrl = function (fn) {
+    WebWorkerService.prototype.getOrCreateWorkerUrl = function (fn, enableAsync) {
         if (!this.workerFunctionToUrlMap.has(fn)) {
-            var url = this.createWorkerUrl(fn);
+            var url = this.createWorkerUrl(fn, enableAsync);
             this.workerFunctionToUrlMap.set(fn, url);
             return url;
         }
         return this.workerFunctionToUrlMap.get(fn);
     };
-    WebWorkerService.prototype.createWorkerUrl = function (resolve) {
+    WebWorkerService.prototype.createWorkerUrl = function (resolve, enableAsync) {
         var resolveString = resolve.toString();
-        var webWorkerTemplate = "\n            self.addEventListener('message', function(e) {\n                postMessage((" + resolveString + ")(e.data));\n            });\n        ";
+        var webWorkerTemplate = "\n            self.addEventListener('message', function(e) {\n                " + (!enableAsync ? 'postMessage' : '') + "((" + resolveString + ")(e.data));\n            });\n        ";
         var blob = new Blob([webWorkerTemplate], { type: 'text/javascript' });
         return URL.createObjectURL(blob);
     };
