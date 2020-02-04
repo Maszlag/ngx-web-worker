@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * Generated from: lib/webworker.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class WebworkerService {
     constructor() {
@@ -13,11 +14,12 @@ class WebworkerService {
      * @template T
      * @param {?} workerFunction
      * @param {?=} data
+     * @param {?=} enableAsync
      * @return {?}
      */
-    run(workerFunction, data) {
+    run(workerFunction, data, enableAsync) {
         /** @type {?} */
-        const url = this.getOrCreateWorkerUrl(workerFunction);
+        const url = this.getOrCreateWorkerUrl(workerFunction, enableAsync);
         return this.runUrl(url, data);
     }
     /**
@@ -77,12 +79,13 @@ class WebworkerService {
     /**
      * @private
      * @param {?} fn
+     * @param {?=} enableAsync
      * @return {?}
      */
-    getOrCreateWorkerUrl(fn) {
+    getOrCreateWorkerUrl(fn, enableAsync) {
         if (!this.workerFunctionToUrlMap.has(fn)) {
             /** @type {?} */
-            const url = this.createWorkerUrl(fn);
+            const url = this.createWorkerUrl(fn, enableAsync);
             this.workerFunctionToUrlMap.set(fn, url);
             return url;
         }
@@ -91,15 +94,16 @@ class WebworkerService {
     /**
      * @private
      * @param {?} resolve
+     * @param {?=} enableAsync
      * @return {?}
      */
-    createWorkerUrl(resolve) {
+    createWorkerUrl(resolve, enableAsync) {
         /** @type {?} */
         const resolveString = resolve.toString();
         /** @type {?} */
         const webWorkerTemplate = `
       self.addEventListener('message', function(e) {
-        postMessage((${resolveString})(e.data));
+        ${!enableAsync ? 'postMessage' : ''}((${resolveString})(e.data));
       });
     `;
         /** @type {?} */
@@ -141,6 +145,30 @@ class WebworkerService {
 WebworkerService.decorators = [
     { type: Injectable }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    WebworkerService.prototype.workerFunctionToUrlMap;
+    /**
+     * @type {?}
+     * @private
+     */
+    WebworkerService.prototype.promiseToWorkerMap;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: public-api.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: nitinkrmr-ngx-webworker.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { WebworkerService };
 //# sourceMappingURL=nitinkrmr-ngx-webworker.js.map

@@ -2,11 +2,12 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core')) :
     typeof define === 'function' && define.amd ? define('@nitinkrmr/ngx-webworker', ['exports', '@angular/core'], factory) :
     (global = global || self, factory((global.nitinkrmr = global.nitinkrmr || {}, global.nitinkrmr['ngx-webworker'] = {}), global.ng.core));
-}(this, function (exports, core) { 'use strict';
+}(this, (function (exports, core) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * Generated from: lib/webworker.service.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var WebworkerService = /** @class */ (function () {
         function WebworkerService() {
@@ -17,17 +18,19 @@
          * @template T
          * @param {?} workerFunction
          * @param {?=} data
+         * @param {?=} enableAsync
          * @return {?}
          */
         WebworkerService.prototype.run = /**
          * @template T
          * @param {?} workerFunction
          * @param {?=} data
+         * @param {?=} enableAsync
          * @return {?}
          */
-        function (workerFunction, data) {
+        function (workerFunction, data, enableAsync) {
             /** @type {?} */
-            var url = this.getOrCreateWorkerUrl(workerFunction);
+            var url = this.getOrCreateWorkerUrl(workerFunction, enableAsync);
             return this.runUrl(url, data);
         };
         /**
@@ -108,17 +111,19 @@
         /**
          * @private
          * @param {?} fn
+         * @param {?=} enableAsync
          * @return {?}
          */
         WebworkerService.prototype.getOrCreateWorkerUrl = /**
          * @private
          * @param {?} fn
+         * @param {?=} enableAsync
          * @return {?}
          */
-        function (fn) {
+        function (fn, enableAsync) {
             if (!this.workerFunctionToUrlMap.has(fn)) {
                 /** @type {?} */
-                var url = this.createWorkerUrl(fn);
+                var url = this.createWorkerUrl(fn, enableAsync);
                 this.workerFunctionToUrlMap.set(fn, url);
                 return url;
             }
@@ -127,18 +132,20 @@
         /**
          * @private
          * @param {?} resolve
+         * @param {?=} enableAsync
          * @return {?}
          */
         WebworkerService.prototype.createWorkerUrl = /**
          * @private
          * @param {?} resolve
+         * @param {?=} enableAsync
          * @return {?}
          */
-        function (resolve) {
+        function (resolve, enableAsync) {
             /** @type {?} */
             var resolveString = resolve.toString();
             /** @type {?} */
-            var webWorkerTemplate = "\n      self.addEventListener('message', function(e) {\n        postMessage((" + resolveString + ")(e.data));\n      });\n    ";
+            var webWorkerTemplate = "\n      self.addEventListener('message', function(e) {\n        " + (!enableAsync ? 'postMessage' : '') + "((" + resolveString + ")(e.data));\n      });\n    ";
             /** @type {?} */
             var blob = new Blob([webWorkerTemplate], { type: 'text/javascript' });
             return URL.createObjectURL(blob);
@@ -192,10 +199,22 @@
         ];
         return WebworkerService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        WebworkerService.prototype.workerFunctionToUrlMap;
+        /**
+         * @type {?}
+         * @private
+         */
+        WebworkerService.prototype.promiseToWorkerMap;
+    }
 
     exports.WebworkerService = WebworkerService;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=nitinkrmr-ngx-webworker.umd.js.map

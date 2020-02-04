@@ -7,8 +7,8 @@ export class WebworkerService {
   private workerFunctionToUrlMap = new WeakMap<CallbackFunction, string>();
   private promiseToWorkerMap = new WeakMap<Promise<any>, Worker>();
 
-  run<T>(workerFunction: (input: any) => T, data?: any): Promise<T> {
-    const url = this.getOrCreateWorkerUrl(workerFunction);
+  run<T>(workerFunction: (input: any) => T, data?: any, enableAsync?: boolean): Promise<T> {
+    const url = this.getOrCreateWorkerUrl(workerFunction, enableAsync);
     return this.runUrl(url, data);
   }
 
@@ -40,20 +40,20 @@ export class WebworkerService {
     });
   }
 
-  private getOrCreateWorkerUrl(fn: any): string {
+  private getOrCreateWorkerUrl(fn: any, enableAsync?: boolean): string {
     if (!this.workerFunctionToUrlMap.has(fn)) {
-      const url = this.createWorkerUrl(fn);
+      const url = this.createWorkerUrl(fn, enableAsync);
       this.workerFunctionToUrlMap.set(fn, url);
       return url;
     }
     return this.workerFunctionToUrlMap.get(fn);
   }
 
-  private createWorkerUrl(resolve: CallbackFunction): string {
+  private createWorkerUrl(resolve: CallbackFunction, enableAsync?: boolean): string {
     const resolveString = resolve.toString();
     const webWorkerTemplate = `
       self.addEventListener('message', function(e) {
-        postMessage((${resolveString})(e.data));
+        ${!enableAsync ? 'postMessage' : ''}((${resolveString})(e.data));
       });
     `;
     const blob = new Blob([webWorkerTemplate], { type: 'text/javascript' });

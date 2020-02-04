@@ -1,7 +1,7 @@
 export declare class WebworkerService {
     private workerFunctionToUrlMap;
     private promiseToWorkerMap;
-    run<T>(workerFunction: (input: any) => T, data?: any): Promise<T>;
+    run<T>(workerFunction: (input: any) => T, data?: any, enableAsync?: boolean): Promise<T>;
     runUrl(url: string, data?: any): Promise<any>;
     terminate<T>(promise: Promise<T>): Promise<T>;
     getWorker(promise: Promise<any>): Worker;

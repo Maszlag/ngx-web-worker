@@ -9,8 +9,8 @@
     "worker"
   ],
   "peerDependencies": {
-    "@angular/common": "^8.0.3",
-    "@angular/core": "^8.0.3"
+    "@angular/common": "^8.2.14",
+    "@angular/core": "^8.2.14"
   },
   "main": "bundles/nitinkrmr-ngx-webworker.umd.js",
   "module": "fesm5/nitinkrmr-ngx-webworker.js",
