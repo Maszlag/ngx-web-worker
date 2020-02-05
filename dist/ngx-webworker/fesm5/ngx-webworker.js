@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
  * Generated from: lib/webworker.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class WebworkerService {
-    constructor() {
+var WebworkerService = /** @class */ (function () {
+    function WebworkerService() {
         this.workerFunctionToUrlMap = new WeakMap();
         this.promiseToWorkerMap = new WeakMap();
     }
@@ -17,42 +17,63 @@ class WebworkerService {
      * @param {?=} enableAsync
      * @return {?}
      */
-    run(workerFunction, data, enableAsync) {
+    WebworkerService.prototype.run = /**
+     * @template T
+     * @param {?} workerFunction
+     * @param {?=} data
+     * @param {?=} enableAsync
+     * @return {?}
+     */
+    function (workerFunction, data, enableAsync) {
         /** @type {?} */
-        const url = this.getOrCreateWorkerUrl(workerFunction, enableAsync);
+        var url = this.getOrCreateWorkerUrl(workerFunction, enableAsync);
         return this.runUrl(url, data);
-    }
+    };
     /**
      * @param {?} url
      * @param {?=} data
      * @return {?}
      */
-    runUrl(url, data) {
+    WebworkerService.prototype.runUrl = /**
+     * @param {?} url
+     * @param {?=} data
+     * @return {?}
+     */
+    function (url, data) {
         /** @type {?} */
-        const worker = new Worker(url);
+        var worker = new Worker(url);
         /** @type {?} */
-        const promise = this.createPromiseForWorker(worker, data);
+        var promise = this.createPromiseForWorker(worker, data);
         /** @type {?} */
-        const promiseCleaner = this.createPromiseCleaner(promise);
+        var promiseCleaner = this.createPromiseCleaner(promise);
         this.promiseToWorkerMap.set(promise, worker);
         promise.then(promiseCleaner).catch(promiseCleaner);
         return promise;
-    }
+    };
     /**
      * @template T
      * @param {?} promise
      * @return {?}
      */
-    terminate(promise) {
+    WebworkerService.prototype.terminate = /**
+     * @template T
+     * @param {?} promise
+     * @return {?}
+     */
+    function (promise) {
         return this.removePromise(promise);
-    }
+    };
     /**
      * @param {?} promise
      * @return {?}
      */
-    getWorker(promise) {
+    WebworkerService.prototype.getWorker = /**
+     * @param {?} promise
+     * @return {?}
+     */
+    function (promise) {
         return this.promiseToWorkerMap.get(promise);
-    }
+    };
     /**
      * @private
      * @template T
@@ -60,91 +81,120 @@ class WebworkerService {
      * @param {?} data
      * @return {?}
      */
-    createPromiseForWorker(worker, data) {
+    WebworkerService.prototype.createPromiseForWorker = /**
+     * @private
+     * @template T
+     * @param {?} worker
+     * @param {?} data
+     * @return {?}
+     */
+    function (worker, data) {
         return new Promise((/**
          * @param {?} resolve
          * @param {?} reject
          * @return {?}
          */
-        (resolve, reject) => {
+        function (resolve, reject) {
             worker.addEventListener('message', (/**
              * @param {?} event
              * @return {?}
              */
-            (event) => resolve(event.data)));
+            function (event) { return resolve(event.data); }));
             worker.addEventListener('error', reject);
             worker.postMessage(data);
         }));
-    }
+    };
     /**
      * @private
      * @param {?} fn
      * @param {?=} enableAsync
      * @return {?}
      */
-    getOrCreateWorkerUrl(fn, enableAsync) {
+    WebworkerService.prototype.getOrCreateWorkerUrl = /**
+     * @private
+     * @param {?} fn
+     * @param {?=} enableAsync
+     * @return {?}
+     */
+    function (fn, enableAsync) {
         if (!this.workerFunctionToUrlMap.has(fn)) {
             /** @type {?} */
-            const url = this.createWorkerUrl(fn, enableAsync);
+            var url = this.createWorkerUrl(fn, enableAsync);
             this.workerFunctionToUrlMap.set(fn, url);
             return url;
         }
         return this.workerFunctionToUrlMap.get(fn);
-    }
+    };
     /**
      * @private
      * @param {?} resolve
      * @param {?=} enableAsync
      * @return {?}
      */
-    createWorkerUrl(resolve, enableAsync) {
+    WebworkerService.prototype.createWorkerUrl = /**
+     * @private
+     * @param {?} resolve
+     * @param {?=} enableAsync
+     * @return {?}
+     */
+    function (resolve, enableAsync) {
         /** @type {?} */
-        const resolveString = resolve.toString();
+        var resolveString = resolve.toString();
         /** @type {?} */
-        const webWorkerTemplate = `
-      self.addEventListener('message', function(e) {
-        ${!enableAsync ? 'postMessage' : ''}((${resolveString})(e.data));
-      });
-    `;
+        var webWorkerTemplate = "\n      self.addEventListener('message', function(e) {\n        " + (!enableAsync ? 'postMessage' : '') + "((" + resolveString + ")(e.data));\n      });\n    ";
         /** @type {?} */
-        const blob = new Blob([webWorkerTemplate], { type: 'text/javascript' });
+        var blob = new Blob([webWorkerTemplate], { type: 'text/javascript' });
         return URL.createObjectURL(blob);
-    }
+    };
     /**
      * @private
      * @template T
      * @param {?} promise
      * @return {?}
      */
-    createPromiseCleaner(promise) {
+    WebworkerService.prototype.createPromiseCleaner = /**
+     * @private
+     * @template T
+     * @param {?} promise
+     * @return {?}
+     */
+    function (promise) {
+        var _this = this;
         return (/**
          * @param {?} event
          * @return {?}
          */
-        (event) => {
-            this.removePromise(promise);
+        function (event) {
+            _this.removePromise(promise);
             return event;
         });
-    }
+    };
     /**
      * @private
      * @template T
      * @param {?} promise
      * @return {?}
      */
-    removePromise(promise) {
+    WebworkerService.prototype.removePromise = /**
+     * @private
+     * @template T
+     * @param {?} promise
+     * @return {?}
+     */
+    function (promise) {
         /** @type {?} */
-        const worker = this.promiseToWorkerMap.get(promise);
+        var worker = this.promiseToWorkerMap.get(promise);
         if (worker) {
             worker.terminate();
         }
         this.promiseToWorkerMap.delete(promise);
         return promise;
-    }
-}
-WebworkerService.decorators = [
-    { type: Injectable }
-];
+    };
+    WebworkerService.decorators = [
+        { type: Injectable }
+    ];
+    return WebworkerService;
+}());
 if (false) {
     /**
      * @type {?}
@@ -166,9 +216,9 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: nitinkrmr-ngx-webworker.ts
+ * Generated from: ngx-webworker.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { WebworkerService };
-//# sourceMappingURL=nitinkrmr-ngx-webworker.js.map
+//# sourceMappingURL=ngx-webworker.js.map

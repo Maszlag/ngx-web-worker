@@ -3,7 +3,7 @@
   "version": "8.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4199",
+    "start": "ng serve --port 4199 --aot",
     "build:app": "ng build web-wroker-tester --base-href ngx-web-worker",
     "build:lib": "ng build ngx-webworker",
     "publish:git": "git subtree push --prefix dist/web-wroker-tester origin gh-pages",
