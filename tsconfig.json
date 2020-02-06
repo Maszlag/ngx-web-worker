@@ -25,10 +25,10 @@
       "web-worker/*": [
         "dist/web-worker/*"
       ],
-      "ngx-webworker": [
+      "@n-abel/ngx-webworker": [
         "dist/ngx-webworker"
       ],
-      "ngx-webworker/*": [
+      "@n-abel/ngx-webworker/*": [
         "dist/ngx-webworker/*"
       ]
     }

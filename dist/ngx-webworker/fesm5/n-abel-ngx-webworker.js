@@ -216,9 +216,9 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: ngx-webworker.ts
+ * Generated from: n-abel-ngx-webworker.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { WebworkerService };
-//# sourceMappingURL=ngx-webworker.js.map
+//# sourceMappingURL=n-abel-ngx-webworker.js.map

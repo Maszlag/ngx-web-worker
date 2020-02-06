@@ -1,4 +1,4 @@
-import { WebworkerService } from 'ngx-webworker';
+import { WebworkerService } from '@n-abel/ngx-webworker';
 
 import { Component, OnInit } from '@angular/core';
 

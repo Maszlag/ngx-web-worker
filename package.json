@@ -1,5 +1,5 @@
 {
-  "name": "ngx-webworker",
+  "name": "@n-abel/ngx-webworker",
   "version": "8.0.1",
   "scripts": {
     "ng": "ng",

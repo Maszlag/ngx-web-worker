@@ -1,5 +1,5 @@
 {
-  "name": "ngx-webworker",
+  "name": "@n-abel/ngx-webworker",
   "version": "8.0.2",
   "author": "Nitin Kumar Mishra",
   "license": "Mit",
@@ -12,15 +12,15 @@
     "@angular/common": "^8.2.14",
     "@angular/core": "^8.2.14"
   },
-  "main": "bundles/ngx-webworker.umd.js",
-  "module": "fesm5/ngx-webworker.js",
-  "es2015": "fesm2015/ngx-webworker.js",
-  "esm5": "esm5/ngx-webworker.js",
-  "esm2015": "esm2015/ngx-webworker.js",
-  "fesm5": "fesm5/ngx-webworker.js",
-  "fesm2015": "fesm2015/ngx-webworker.js",
-  "typings": "ngx-webworker.d.ts",
-  "metadata": "ngx-webworker.metadata.json",
+  "main": "bundles/n-abel-ngx-webworker.umd.js",
+  "module": "fesm5/n-abel-ngx-webworker.js",
+  "es2015": "fesm2015/n-abel-ngx-webworker.js",
+  "esm5": "esm5/n-abel-ngx-webworker.js",
+  "esm2015": "esm2015/n-abel-ngx-webworker.js",
+  "fesm5": "fesm5/n-abel-ngx-webworker.js",
+  "fesm2015": "fesm2015/n-abel-ngx-webworker.js",
+  "typings": "n-abel-ngx-webworker.d.ts",
+  "metadata": "n-abel-ngx-webworker.metadata.json",
   "sideEffects": false,
   "dependencies": {
     "tslib": "^1.9.0"
